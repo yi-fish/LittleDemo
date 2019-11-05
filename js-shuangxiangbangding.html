@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>双向绑定</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <input type="text" mmm="inputvalue1"><br>
+    <input type="text" mmm="inputvalue2"><br>
+    <input type="text" mmm="inputvalue3"><br>
+    <div id="text"></div>
+</body>
+<script>
+    const ngmmm = {
+        inputvalue1: "初始1",
+        inputvalue2: "初始2",
+        inputvalue3: "初始3"
+    };
+
+    const inputs = document.querySelectorAll('input[mmm]');
+    console.log(inputs)
+   
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = ngmmm[inputs[i].getAttribute('mmm')]
+        inputs[i].addEventListener('keyup', change)
+
+    };
+    document.getElementById('text').innerHTML = "我是初始值";
+
+    function change(e) {
+        const attr = e.target.getAttribute('mmm');
+        ngmmm[attr] = e.target.value
+        document.getElementById('text').innerHTML = ngmmm[attr];
+    }
+</script>
+
+</html>

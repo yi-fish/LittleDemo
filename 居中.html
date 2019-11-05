@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        } */
+
+        /* .content { */
+        /* width: 300px; */
+        /* height: 300px; */
+        /* background: orange; */
+        /* margin: 0 auto; */
+        /*水平居中*/
+        /* position: relative; */
+        /* bottom: 50%; */
+        /*偏移*/
+        /* transform: translateY(-50%); */
+        /* margin-top: -150px; */
+        /* } */
+
+
+        /* html,body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            display: flex;
+            align-items: center;  
+            justify-content: center;  
+        }
+        .content {
+            width: 300px;
+            height: 300px;
+            background: orange;        
+        } */
+
+        .container {
+            /* position: fixed; */
+            /* top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; */
+            background-color: rgba(0, 0, 0, .5);
+            text-align: center;
+            /* font-size: 0; */
+            /* white-space: nowrap; */
+            /* overflow: auto; */
+            width: 300px;
+            height: 300px;
+        }
+
+        .container:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .dialog {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left;
+            font-size: 14px;
+            white-space: normal;
+        }
+
+        a:after {
+            content: " ("attr(href) ")"
+        }
+
+     
+        html,body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .zm {
+            width: 500px;
+            height: 300px;
+            background: orange;
+        }
+
+        .zx {
+            position: relative;
+            top: 50%;
+            background-color: bisque;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- <p><a href="http://www.w3school.com.cn">W3School</a> .</p> -->
+    <!-- <div class="content"></div> -->
+
+    <!-- <div class="container">
+        <div class="dialog">
+            社会困境安徽省立刻回来看
+        </div>
+    </div> -->
+    <div class="zm">
+        社会困境安徽省立刻回来看
+        <div class="zx">
+            社会困境安徽省立刻回来看
+        </div>
+    </div>
+
+</body>
+
+</html>

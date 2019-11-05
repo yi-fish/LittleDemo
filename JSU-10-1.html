@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        body {
+            height: 9000px;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="ipt" type="text" placeholder="请输入...">
+    <p id="text"></p>
+
+
+
+    <p>数组元素总和：<span id="demo"></span></p>
+
+
+    <script>
+
+        function debounce(fn) {
+            let timeout = null;
+            return function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    fn.call(this, arguments);
+                }, 1000);
+            }
+        }
+
+
+        //使用function定义的函数
+        function foo() {
+            console.log(this);
+        }
+        var obj = { aa: foo };
+        foo(); //Window
+        obj.aa() //obj { aa: foo }
+
+
+
+        //Arrary.map
+        var originalArr = [1, 2, 3, 4, 5];
+
+        function timesFive(item) {
+            return item * 5;
+        }
+        var arrTimesFive = new_map(originalArr, timesFive);
+        console.log(arrTimesFive);
+        // -> [5, 10, 15, 20, 25]
+
+
+        function multiplyByIndex(item, index) {
+            return index + 1 + ". " + item;
+        }
+        var arr = ["bananas", "tomatoes", "pasta", "protein shakes"];
+        var mappedArr = new_map(arr, multiplyByIndex);
+        console.log(mappedArr);
+        // ["1. bananas", "2. tomatoes", "3. pasta", "4. protein shakes"]
+
+
+        function logAll(item, index, arr) {
+            console.log("new_map: " + item, index, arr);
+        }
+        new_map(arr, logAll);
+
+        //使用自带的Array.map函数，则如下所示
+        function func(item) {
+            return item * 3;
+        }
+        var arr = [1, 2, 3];
+        var newArr = arr.map(func);
+        console.log("自带的Array.map函数: " + newArr); // -> [3, 6, 9]
+
+
+        function new_map(arr, transform) {
+            var newArr = [];
+
+            for (var i = 0; i < arr.length; i++) {
+                newArr[i] = transform(arr[i], i, arr);
+            }
+            return newArr;
+        }
+
+
+
+
+
+
+
+        // for 循环加上Array.push实现 Array.filter
+        var originalArr = [2, 4, 6, 8, 10];
+        function new_filter(arr, greaterThan) {
+            var filteredArr = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (greaterThan(arr[i])) {
+                    filteredArr.push(arr[i]);
+                }
+            }
+            return filteredArr;
+        }
+
+        function isGreaterThan5(item) {
+            return item > 5;
+        }
+        var newArr = new_filter(originalArr, isGreaterThan5);
+        console.log("new_filter: " + newArr); // -> [6, 8, 10];
+
+
+        var arr = ["abc", "def", "ghijkl", "mnopuv"];
+        function longerThanThree(str) {
+            return str.length > 3;
+        }
+        var newArr1 = new_filter(arr, longerThanThree);
+        var newArr2 = arr.filter(longerThanThree);
+        console.log("new_filter: " + newArr1); // -> ['ghijkl', 'mnopuv']
+        console.log("自带的Array.filter: " + newArr2); // -> ['ghijkl', 'mnopuv']
+
+
+        // 性能测试 
+        var startTime = +new Date(); //+new Date()相当于new Date().valueOf()，返回当前时间的毫秒数
+        // 性能测试 
+        var endTime = +new Date();
+        console.log("调用xxx方法往数组中添加xxxxx个元素耗时" + (endTime - startTime) + "毫秒");
+
+        //帮助函数 （打印信息）
+        function logOperation(operationName, array, callback) {
+            const input = [...array];
+            const result = callback(array);
+
+            console.log({
+                operation: operationName,
+                arrayBefore: input,
+                arrayAfter: array,
+                mutates: mutatesArray(input, array), // shallow check
+                result,
+            });
+        }
+        // mutatesArray 方法用来判断是否更改了原数组，如果有修改则返回 true，否则返回 false。
+        function mutatesArray(firstArray, secondArray) {
+            if (firstArray.length !== secondArray.length) {
+                return true;
+            }
+
+            for (let index = 0; index < firstArray.length; index += 1) {
+                if (firstArray[index] !== secondArray[index]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        //push
+        function push(array, ...values) {
+            const { length: arrayLength } = array;
+            const { length: valuesLength } = values;
+
+            for (let index = 0; index < valuesLength; index += 1) {
+                array[arrayLength + index] = values[index];
+            }
+
+            return array.length;
+        }
+        //pop
+        function pop(array) {
+
+            const value = array[array.length - 1];
+            array.length = array.length - 1;
+
+            return value;
+        }
+        logOperation('pop', [1, 2, 3, 4, 5], array => pop(array));
+        logOperation('push', [1, 2, 3, 4, 5], array => push(array, 6, 7));
+
+        //concat
+        function concat(array, ...values) {
+            const result = [...array];
+            const { length } = values;
+
+            for (let index = 0; index < length; index += 1) {
+                const value = values[index];
+
+                if (Array.isArray(value)) {
+                    push(result, ...value);
+                } else {
+                    push(result, value);
+                }
+            }
+
+            return result;
+        }
+        //unshift
+        function unshift(array, ...values) {
+            const mergedArrays = concat(values, ...array);
+            const { length } = mergedArrays;
+
+            for (let index = 0; index < length; index += 1) {
+                const value = mergedArrays[index];
+                array[index] = value;
+            }
+
+            return array.length;
+        }
+
+        logOperation('unshift', [1, 2, 3, 4, 5], array => unshift(array, 77));
+
+
+        //slice
+        function slice(array, startIndex = 0, endIndex = array.length) {
+            let result = [];
+            let index = 0;
+            for (startIndex; startIndex < endIndex; startIndex++) {
+
+                result[index++] = array[startIndex];
+            }
+
+            return result;
+        }
+
+        logOperation('slice', [1, 2, 3, 4, 5], array => slice(array, 2, 4));
+
+        //splice
+        function splice(array, insertAtIndex, removeNumberOfElements, ...values) {
+            const temp = [];
+            let i = 0;
+
+            const firstPart = slice(array, 0, insertAtIndex);
+            const secondPart = slice(array, insertAtIndex + removeNumberOfElements);
+            const removedElements = slice(array, insertAtIndex, insertAtIndex + removeNumberOfElements);
+
+            const joinedParts = firstPart.concat(values, secondPart);
+
+            for (let index = 0; index < joinedParts.length; index++) {
+                array[index] = joinedParts[index];
+            }
+            array.length = joinedParts.length;
+
+
+
+
+            // array.length = array.length - removeNumberOfElements + values.length;
+
+            // if (values.length - removeNumberOfElements) {
+
+            //     for (i; i < values.length - removeNumberOfElements; i++) {
+            //         array[array.length] = array[array.length - 1]
+            //     }
+
+            // }
+
+            // for (let index = startIndex; index < values.length; index++) {
+            //     array[index] = values[i++];
+
+            // }
+            // return array.length;
+        }
+
+        logOperation('splice', [1, 2, 3, 4, 5], array => splice(array, 0, 2, 15, 16, 17));
+
+
+        //foreach
+        function foreach(array, call) {
+            const { length } = array;
+
+            for (let index = 0; index < length; index++) {
+                const value = array[index];
+                call(value, index, array)
+            }
+        }
+        var sum = 0;
+        function call(item) {
+            sum += item;
+            demo.innerHTML = sum;
+        }
+        logOperation('foreach', [1, 2, 3, 4, 5], array => foreach(array, call));
+
+
+        //every
+        function every(array, back) {
+
+            for (let index = 0; index < array.length; index++) {
+                const value = array[index];
+                if (!back(value))
+                    return false;
+            }
+            return true;
+        }
+        function back(item) {
+            return item === 2;
+        }
+        logOperation('every', [1, 2, 3, 4, 5], array => every(array, back));
+
+
+
+        //some
+        function some(array, back) {
+
+            for (let index = 0; index < array.length; index++) {
+                const value = array[index];
+                if (back(value))
+                    return true;
+            }
+            return false;
+        }
+
+        logOperation('some', [1, 2, 3, 4, 5], array => some(array, back));
+
+
+
+
+
+
+
+
+
+
+
+
+        // 防抖
+        function debounce(fn, wait) {
+            var timeout = null;
+            return function () {
+                if (timeout !== null) clearTimeout(timeout);
+                timeout = setTimeout(fn, wait);
+            }
+        }
+        // 处理函数
+        function handle1() {
+            console.log("防抖: " + Math.random());
+        }
+        // 滚动事件
+        window.addEventListener('click', debounce(handle1, 1000));
+
+
+        // var throttle = function (func, delay) {
+        //     var timer = null;
+        //     var startTime = Date.now();
+        //     return function () {
+        //         var curTime = Date.now();
+        //         var remaining = delay - (curTime - startTime);
+        //         var context = this;
+        //         var args = arguments;
+        //         clearTimeout(timer);
+        //         if (remaining <= 0) {
+        //             func.apply(context, args);
+        //             startTime = Date.now();
+        //         } else {
+        //             timer = setTimeout(func, remaining);
+        //         }
+        //     }
+        // }
+        // function handle() {
+        //     console.log(Math.random());
+        // }
+        // window.addEventListener('scroll', throttle(handle, 1000));
+
+        // 时间戳
+        var throttle = function (func, delay) {
+            var prev = Date.now();
+            return function () {
+                var context = this;
+                var args = arguments;
+                var now = Date.now();
+                if (now - prev >= delay) {
+                    func.apply(context, args);
+                    prev = Date.now();
+                }
+            }
+        }
+        function handle() {
+            console.log("函数节流: " + Math.floor((Math.random() * 100) + 1));
+        }
+        window.addEventListener('scroll', throttle(handle, 1000));
+
+        $(function () {
+            $('#ipt').on('keyup', throttle(function () {
+                $('#text').text($(this).val());
+            }, 500))
+        })
+    </script>
+</body>
+
+</html>　

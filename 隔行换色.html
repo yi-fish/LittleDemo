@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <table align="center" border="1px" id="tbl" width="80%">
+                <thead>
+                    <tr>
+                        <td><input type="checkbox"  id="checkAll" /></td>
+                        <td>编号</td>
+                        <td>用户名</td>
+                        <td>密码</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>257</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>258</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>259</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>257</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>258</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>259</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>257</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>258</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                    <tr>
+                        <td> <input type="checkbox" name="checkOne"></td>
+                        <td>259</td>
+                        <td>大大撒</td>
+                        <td>132132132</td>
+                    </tr>
+                </tbody>
+        
+            </table>
+    <script>
+          tabColor();
+        function tabColor() {
+            var tabEle = document.getElementById("tbl");
+
+            var tbodylen = tabEle.tBodies[0].rows.length;
+
+            for (var i = 0; i < tbodylen; i++) {
+                if (i % 2 == 0) {
+                    tabEle.tBodies[0].rows[i].style.backgroundColor = "pink";
+                } else {
+                    tabEle.tBodies[0].rows[i].style.backgroundColor = "gold";
+                }
+            }
+        };
+        </script>
+
+
+
+<ul >
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+<script>
+        window.onload=function ()
+        {
+            var aLi=document.getElementsByTagName('li');
+
+            for(var i=0;i<aLi.length;i++)
+            {
+                //i 0 1 2 3 4 5 6....
+                if(i%2==0)
+                {
+                    //0 2 4 6 8 10
+                    aLi[i].style.background='#CCC';
+                }
+                else
+                {
+                    //1 3 5 7 9
+                    aLi[i].style.background='';
+                }
+            }
+        };
+    </script>
+
+</body>
+</html>

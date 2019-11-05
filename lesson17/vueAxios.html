@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue事件绑定</title>
+    <script src="vue.js"></script>
+    <script src="axios.js"></script>
+</head>
+
+<body>
+
+<div id="app" style="height: 1500px;">
+    <button @click="getAxiosData()">发送请求</button>
+
+    <div>
+        接收请求
+        <p v-for="(item,index) in newsList">
+            <span style="color:red" @click="getNewsDetail(item.post_id)">{{item.author_name}}</span>
+            <span>{{item.created_at}}</span>
+            <span>{{item.title}}</span>
+        </p>
+        <p>
+            <img :src="imgSrc" alt="">
+        </p>
+    </div>
+
+</div>
+
+
+<script>
+
+    Vue.prototype.$http = axios;
+    let app = new Vue({
+        el:'#app',
+        data:{
+            newsList:[],
+            imgSrc:''
+        },
+        methods:{
+            getAxiosData() {
+                this.$http({
+                    method:'GET',
+                    url:'https://unidemo.dcloud.net.cn/api/news',
+                }).then(res => {
+                    console.log(res);
+                    this.newsList = res.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
+            getNewsDetail(id){
+                this.$http({
+                    method:'GET',
+                    url:'https://unidemo.dcloud.net.cn/api/news/36kr/'+id,
+                }).then(res => {
+                    console.log(res);
+                    this.imgSrc = res.data.author_avatar;
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
+        },
+    });
+
+
+</script>
+</body>
+</html>

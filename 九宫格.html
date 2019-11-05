@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>九宫格</title>
+    <style>
+     .square {
+            width: 490px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 33.3%);
+            grid-template-rows: repeat(3, 33.3%);
+            gap: 10px 10px;
+            font-size: 40px;
+            background: #fff;
+            color: #fff;
+        }
+
+        .grid div {
+            background-color: #4d839c;
+            text-align: center;
+            height: 100px;
+            line-height: 150PX;
+            width: 150px;
+            height: 150px;
+        }
+
+        .grid div:hover {
+            font-size: 60px;
+            background: red;
+        }
+
+    </style>
+</head>
+<body>
+        <div class="square">
+                <div class="square-inner grid">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                </div>
+            </div>
+</body>
+</html>

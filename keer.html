@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tableCol {
+            width: 95%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid gold;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="" id="tbl" style="display: flex; flex-direction: column;justify-content: center;">
+        <caption>Monthly savings</caption>
+        <tr>
+            <th>Month</th>
+            <th>Savings</th>
+        </tr>
+        <tr>
+            <td>January</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>February</td>
+            <td>$50</td>
+        </tr>
+        <tr>
+            <td>January</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>February</td>
+            <td>$50</td>
+        </tr>
+        <tr>
+            <td>January</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>February</td>
+            <td>$50</td>
+        </tr>
+    </table>
+    <script>
+        onload = tabColor();
+        function tabColor() {
+            var tabEle = document.getElementById("tbl");
+            console.log(tabEle)
+            var tbodylen = tabEle.tBodies[0].rows.length;
+
+            for (var i = 0; i < tbodylen; i++) {
+                if (i % 2 == 0) {
+                    tabEle.tBodies[0].rows[i].style.backgroundColor = "pink";
+                } else {
+                    tabEle.tBodies[0].rows[i].style.backgroundColor = "gold";
+                }
+            }
+        };
+    </script>
+
+
+
+    <div id="myDiv">
+        <p>html</p>
+        <p>css</p>
+        <p>javascript</p>
+    </div>
+    <p>jquery</p>
+    <!-- document.getElementById();//id名，在实际开发中较少使用，选择器中多用class  id一般只用在顶级层存在 不能太过依赖id
+        document.getElementsByTagName();//标签名
+        document.getElementsByClassName();//类名
+        document.getElementsByName();//name属性值，一般不用
+        document.querySelector();//css选择符模式，返回与该模式匹配的第一个元素，结果为一个元素；如果没找到匹配的元素，则返回null
+        document.querySelectorAll()//css选择符模式，返回与该模式匹配的所有元素，结果为一个类数组 
+    -->
+
+    <script>
+        var div = document.getElementById("myDiv");
+        var p1 = div.getElementsByTagName("p");
+        console.log(p1.length);//3
+
+        var p2 = document.getElementsByTagName("p");
+        console.log(p2.length);//4
+
+        var p3 = document.querySelectorAll("p");
+        console.log(p3.length);//4
+
+        document.body.appendChild(document.createElement("p"));//创建新元素P,并添加到body中
+
+        console.log(p1.length);//3   div节点下的p元素依然只有三个
+        console.log(p2.length);//5   在body中添加了一个新的P元素，该方法是“动态的”，因此，长度发生了变化
+        console.log(p3.length);//4   该方法是“静态的”，因此，无论发生什么变化，p3的值依然不会发生改变
+    </script>
+</body>
+
+</html>
